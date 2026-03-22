@@ -1,52 +1,26 @@
 import 'dart:math';
 
 void main() {
-  MegaSena megaSena = MegaSena();
+  final random = Random();
 
-  Map<String, List<int>> jogos = megaSena.gerarMapaCom10Jogos();
-  print('=== VOLANTES DA MEGA-SENA ===\n');
-
-  jogos.forEach((nomeJogo, volante) {
-    print('$nomeJogo -> $volante');
-  });
-
-  print('\n=== VOLANTES DE CADA TIPO DE APOSTA (6 a 15 números) ===\n');
+  Map<int, List<int>> jogosMegaSena = {};
 
   for (int quantidade = 6; quantidade <= 15; quantidade++) {
-    List<int> volante = megaSena.gerarVolante(quantidade);
-    print('Aposta com $quantidade números -> $volante');
-  }
-}
+    Set<int> volante = {};
 
-class MegaSena {
-  final Random _random = Random();
-
-  List<int> gerarVolante(int quantidadeNumeros) {
-    if (quantidadeNumeros < 6 || quantidadeNumeros > 15) {
-      throw ArgumentError(
-          'A quantidade de números deve estar entre 6 e 15.');
+    while (volante.length < quantidade) {
+      volante.add(random.nextInt(60) + 1);
     }
 
-    Set<int> numeros = {};
+    List<int> numerosOrdenados = volante.toList();
+    numerosOrdenados.sort();
 
-    while (numeros.length < quantidadeNumeros) {
-      int numero = _random.nextInt(60) + 1; // Gera de 1 a 60
-      numeros.add(numero);
-    }
-
-    List<int> volanteOrdenado = numeros.toList()..sort();
-
-    return volanteOrdenado;
+    jogosMegaSena[quantidade] = numerosOrdenados;
   }
 
-  Map<String, List<int>> gerarMapaCom10Jogos() {
-    Map<String, List<int>> jogos = {};
+  print('=== Volantes da Mega-Sena ===\n');
 
-    for (int i = 1; i <= 10; i++) {
-      int quantidadeNumeros = _random.nextInt(10) + 6; // de 6 até 15
-      jogos['Jogo $i'] = gerarVolante(quantidadeNumeros);
-    }
-
-    return jogos;
-  }
+  jogosMegaSena.forEach((quantidade, volante) {
+    print('Aposta com $quantidade números: $volante');
+  });
 }
