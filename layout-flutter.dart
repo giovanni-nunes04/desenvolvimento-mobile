@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(                
             children: [
-              _buildColumn(Icons.check_circle, 'Completas', 'Tasks completas', Colors.blue),
+              _buildColumn(Icons.check_circle, 'Completas', 'Tasks completas', Colors.teal),
               const SizedBox(width: 12),
-              _buildColumn(Icons.edit, 'Em progresso', 'Estão em progresso', Colors.teal),
+              _buildColumn(Icons.edit, 'Em progresso', 'Estão em progresso', Colors.blue),
               const SizedBox(width: 12),
               _buildColumn(Icons.access_time, 'Pendentes', 'Aguardando início', Colors.orange),
             ],
